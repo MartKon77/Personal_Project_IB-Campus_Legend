@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Mouse Tracker
+  - Climber
+  - Hold
   layers:
   - Default
   - TransparentFX
@@ -11,12 +14,12 @@ TagManager:
   - Level
   - Water
   - UI
-  - ArmR
-  - ArmRnofall
-  - ArmL
-  - ArmLnofall
-  - ShoulderR
-  - ShoulderL
+  - Climber
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -40,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Holds
+    uniqueID: 2231475131
+    locked: 0
+  - name: Climber
+    uniqueID: 724532585
+    locked: 0
+  - name: New Layer 3
+    uniqueID: 2803013159
     locked: 0
