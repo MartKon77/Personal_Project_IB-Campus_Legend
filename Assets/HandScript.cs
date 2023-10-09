@@ -6,7 +6,10 @@ public class HandScript : MonoBehaviour
 {
     [SerializeField] Rigidbody2D Rb;
     [SerializeField] Transform MouseTracker;
+    [SerializeField] CircleCollider2D Collider;
 
+    [Range(0f, 1f)]
+    [SerializeField] float controlRange;
     [SerializeField] bool onHold;
     [SerializeField] bool isControlled;
     void Start()
@@ -18,13 +21,21 @@ public class HandScript : MonoBehaviour
 
     void Update()
     {
-        if(isControlled /* && Vector3.Distance(Rb.transform.position, something.transform.position) <= 2.1 */)
+
+        if(Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(transform.position, MouseTracker.position) <= controlRange)
+        {
+            isControlled = true;
+            Collider.enabled = false;
+            onHold = false;
+            Collider.enabled = true;
+        }
+        if (isControlled /* && Vector3.Distance(Rb.transform.position, something.transform.position) <= 2.1 */)
         {
             transform.position = MouseTracker.position;
             if(Input.GetKeyUp(KeyCode.Mouse0))
             {
-                Rb.velocity = Vector3.zero;
                 isControlled = false;
+                Rb.velocity = Vector3.zero;
             }
         }
         if(onHold)
@@ -38,11 +49,6 @@ public class HandScript : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.tag == "Mouse Tracker" && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            isControlled = true;
-            onHold = false;
-        }
         if (col.tag == "Hold" && Input.GetKeyUp(KeyCode.Mouse0))
         {
             onHold = true;
