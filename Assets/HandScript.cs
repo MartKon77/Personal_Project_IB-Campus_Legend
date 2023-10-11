@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class HandScript : MonoBehaviour
@@ -21,8 +22,7 @@ public class HandScript : MonoBehaviour
 
     void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(transform.position, MouseTracker.position) <= controlRange)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(transform.position, MouseTracker.position) <= controlRange)
         {
             isControlled = true;
             Collider.enabled = false;
@@ -38,7 +38,8 @@ public class HandScript : MonoBehaviour
                 Rb.velocity = Vector3.zero;
             }
         }
-        if(onHold)
+        
+        if (onHold)
         {
             Rb.bodyType = RigidbodyType2D.Kinematic;
         }
