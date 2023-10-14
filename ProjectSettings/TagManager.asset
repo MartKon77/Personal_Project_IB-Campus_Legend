@@ -7,6 +7,7 @@ TagManager:
   - Mouse Tracker
   - Climber
   - Hold
+  - HandR
   layers:
   - Default
   - TransparentFX
