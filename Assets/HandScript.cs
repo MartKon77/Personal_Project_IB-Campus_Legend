@@ -12,6 +12,7 @@ public class HandScript : MonoBehaviour
     [SerializeField] float controlRange;
     public bool isControlled;
     public bool onHold;
+    public GameObject CurrentHold;
     void Start()
     {
         Rb.bodyType = RigidbodyType2D.Dynamic;
@@ -46,6 +47,20 @@ public class HandScript : MonoBehaviour
         else if (!onHold && Rb.bodyType != RigidbodyType2D.Dynamic)
         {
             Rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "Hold")
+        {
+            CurrentHold = col.gameObject;
+        }
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.tag == "Hold")
+        {
+            CurrentHold = null;
         }
     }
 }

@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Hold : MonoBehaviour
 {
+    [SerializeField] Transform MouseTracker;
     [SerializeField] GameObject HandR;
     HandScript ScriptR;
+    BoxCollider2D Collider;
     [SerializeField] GameObject Bar;
     [SerializeField] SpriteRenderer BarSprite;
+
     [SerializeField] float grabRange;
+    bool canRegrab;
+
     [SerializeField] int holdType; // 0 - Jug, 1 - Crimp, 2 - Sloper
     [Header("Different Hold Properties")]
     [SerializeField] float jugTime;
@@ -29,6 +34,9 @@ public class Hold : MonoBehaviour
     void Start()
     {
         ScriptR = HandR.GetComponent<HandScript>();
+        Collider = gameObject.GetComponent<BoxCollider2D>();
+        Collider.size = Vector2.one * (grabRange * 2);
+        canRegrab = true;
 
         if (holdType == 0)
         {
@@ -49,34 +57,24 @@ public class Hold : MonoBehaviour
         SpriteRender.sprite = HoldSprite;
 
         spriteR = Random.Range(100f, 200f);
-        if (Time.fixedDeltaTime % 2 == 0)
-        {
-            spriteG = spriteR + Random.Range(30f, 50f);
-            spriteB = spriteG + Random.Range(30f, 50f);
-        }
-        else
-        {
-            spriteG = spriteR - Random.Range(30f, 50f);
-            spriteB = spriteG - Random.Range(30f, 50f);
-            if (spriteB < 100f)
-                spriteB = 100f;
-        }
+        spriteG = Random.Range(100f, 200f);
+        spriteB = Random.Range(100f, 200f);
         SpriteRender.color = new Color(spriteR / 255, spriteG / 255, spriteB / 255);
         BarSprite.color = new Color(spriteR / 255, spriteG / 255, spriteB / 255, 0.7f);
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse0) && Vector3.Distance(transform.position, HandR.transform.position) <= grabRange)
+        if (Input.GetKeyUp(KeyCode.Mouse0) && Vector3.Distance(transform.position, HandR.transform.position) <= grabRange && Vector3.Distance(transform.position, MouseTracker.position) <= grabRange && canRegrab)
         {
             ScriptR.onHold = true;
             currentHoldTime = 1f;
         }
 
-        if (ScriptR.onHold)
+        if (ScriptR.onHold && gameObject == ScriptR.CurrentHold)
         {
             Bar.SetActive(true);
         }
-        else
+        else if(!ScriptR.onHold && gameObject != ScriptR.CurrentHold)
         {
             Bar.SetActive(false);
         }
@@ -84,13 +82,8 @@ public class Hold : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(currentHoldTime > 0 && ScriptR.onHold)
-            currentHoldTime -= Time.fixedDeltaTime / holdTime;
-
-        if (currentHoldTime < 0)
-            currentHoldTime = 0;
-
-        if(currentHoldTime == 0)
-            ScriptR.onHold = false;
+        if (currentHoldTime > 0 && ScriptR.onHold && gameObject == ScriptR.CurrentHold) { currentHoldTime -= Time.fixedDeltaTime / holdTime; }
+        if (currentHoldTime < 0) { currentHoldTime = 0; }
+        if (currentHoldTime == 0 && gameObject == ScriptR.CurrentHold) { ScriptR.onHold = false; }
     }
 }
