@@ -5,26 +5,29 @@ using UnityEngine;
 
 public class Hold : MonoBehaviour
 {
+    [SerializeField] GameScript GameScript;
     [SerializeField] Transform MouseTracker;
     [SerializeField] GameObject HandR;
-    HandScript ScriptR;
-    BoxCollider2D Collider;
+    [SerializeField] GameObject HandL;
     [SerializeField] GameObject Bar;
-    [SerializeField] SpriteRenderer BarSprite;
+    HandScript ScriptR;
+    HandScript ScriptL;
+    BoxCollider2D Collider;
+    SpriteRenderer BarSprite;
 
     [SerializeField] float grabRange;
     bool canRegrab;
-
-    [SerializeField] int holdType; // 0 - Jug, 1 - Crimp, 2 - Sloper
-    [Header("Different Hold Properties")]
-    [SerializeField] float jugTime;
-    [SerializeField] float crimpTime;
-    [SerializeField] float sloperTime;
     float holdTime;
     float currentHoldTime;
-    [SerializeField] Sprite JugSprite;
-    [SerializeField] Sprite CrimpSprite;
-    [SerializeField] Sprite SloperSprite;
+
+    [SerializeField] int holdType; // 0 - Jug, 1 - Crimp, 2 - Sloper
+    // Different Hold Properties:
+    float jugTime;
+    float crimpTime;
+    float sloperTime;
+    Sprite JugSprite;
+    Sprite CrimpSprite;
+    Sprite SloperSprite;
     Sprite HoldSprite;
 
     [SerializeField] SpriteRenderer SpriteRender;
@@ -33,7 +36,16 @@ public class Hold : MonoBehaviour
     float spriteB;
     void Start()
     {
+        jugTime = GameScript.jugTime;
+        crimpTime = GameScript.crimpTime;
+        sloperTime = GameScript.sloperTime;
+        JugSprite = GameScript.JugSprite;
+        CrimpSprite = GameScript.CrimpSprite;
+        SloperSprite = GameScript.SloperSprite;
+
         ScriptR = HandR.GetComponent<HandScript>();
+        ScriptL = HandL.GetComponent<HandScript>();
+        BarSprite = Bar.GetComponent<SpriteRenderer>();
         Collider = gameObject.GetComponent<BoxCollider2D>();
         Collider.size = Vector2.one * (grabRange * 2);
         canRegrab = true;
@@ -69,7 +81,6 @@ public class Hold : MonoBehaviour
             ScriptR.onHold = true;
             currentHoldTime = 1f;
         }
-
         if (ScriptR.onHold && gameObject == ScriptR.CurrentHold)
         {
             Bar.SetActive(true);

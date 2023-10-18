@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Mouse Tracker
   - Climber
   - Hold
   - HandR
+  - HandL
   layers:
   - Default
   - TransparentFX
