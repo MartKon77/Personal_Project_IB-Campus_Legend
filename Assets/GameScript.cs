@@ -10,13 +10,20 @@ public class GameScript : MonoBehaviour
     [SerializeField] float timeScale;
     public bool isWin;
 
-    [Header("Different Hold Properties")]
+    [Header("Game Objects")]
+    public Transform MouseTracker;
+    public GameObject HandR;
+    public GameObject HandL;
+
+    [Header("Hold Properties")]
     public float jugTime;
     public float crimpTime;
     public float sloperTime;
     public Sprite JugSprite;
     public Sprite CrimpSprite;
     public Sprite SloperSprite;
+    [Range(0f, 1f)]
+    public float controlRange;
     void Start()
     {
         Time.fixedDeltaTime = fixedDeltaTime;

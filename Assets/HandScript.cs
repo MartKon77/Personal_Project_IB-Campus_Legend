@@ -6,15 +6,17 @@ using UnityEngine;
 public class HandScript : MonoBehaviour
 {
     public Rigidbody2D Rb;
-    [SerializeField] Transform MouseTracker;
+    [SerializeField] GameScript GameScript;
+    Transform MouseTracker;
 
-    [Range(0f, 1f)]
-    [SerializeField] float controlRange;
+    float controlRange;
     public bool isControlled;
     public bool onHold;
     public GameObject CurrentHold;
     void Start()
     {
+        MouseTracker = GameScript.MouseTracker;
+        controlRange = GameScript.controlRange;
         Rb.bodyType = RigidbodyType2D.Dynamic;
         onHold = false;
         isControlled = false;
