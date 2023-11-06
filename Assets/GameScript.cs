@@ -15,6 +15,11 @@ public class GameScript : MonoBehaviour
     public GameObject HandR;
     public GameObject HandL;
 
+    [Header("Hand properties")]
+    [Range(0f, 1f)]
+    public float controlRange;
+    public float handReach;
+
     [Header("Hold Properties")]
     public float jugTime;
     public float crimpTime;
@@ -22,8 +27,6 @@ public class GameScript : MonoBehaviour
     public Sprite JugSprite;
     public Sprite CrimpSprite;
     public Sprite SloperSprite;
-    [Range(0f, 1f)]
-    public float controlRange;
     void Start()
     {
         Time.fixedDeltaTime = fixedDeltaTime;

@@ -10,6 +10,7 @@ public class HandScript : MonoBehaviour
     Transform MouseTracker;
 
     float controlRange;
+    float handReach;
     public bool isControlled;
     public bool onHold;
     public GameObject CurrentHold;
@@ -17,6 +18,7 @@ public class HandScript : MonoBehaviour
     {
         MouseTracker = GameScript.MouseTracker;
         controlRange = GameScript.controlRange;
+        handReach = GameScript.handReach;
         Rb.bodyType = RigidbodyType2D.Dynamic;
         onHold = false;
         isControlled = false;
@@ -49,6 +51,23 @@ public class HandScript : MonoBehaviour
         else if (!onHold && Rb.bodyType != RigidbodyType2D.Dynamic)
         {
             Rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+
+        if(gameObject.name == "Right Hand")
+        {
+            if (isControlled && transform.position.y - GameScript.HandL.transform.position.y > handReach)
+            {
+                isControlled = false;
+                Rb.velocity = Vector3.zero;
+            }
+        }
+        else if (gameObject.name == "Left Hand")
+        {
+            if (isControlled && transform.position.y - GameScript.HandR.transform.position.y > handReach)
+            {
+                isControlled = false;
+                Rb.velocity = Vector3.zero;
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D col)
