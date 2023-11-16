@@ -33,8 +33,4 @@ public class GameScript : MonoBehaviour
         Time.timeScale = timeScale;
         isWin = false;
     }
-    void Update()
-    {
-        
-    }
 }

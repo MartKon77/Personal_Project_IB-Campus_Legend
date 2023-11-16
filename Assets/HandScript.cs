@@ -30,10 +30,12 @@ public class HandScript : MonoBehaviour
         {
             isControlled = true;
             onHold = false;
+            Rb.velocity = Vector3.zero;
         }
         if (isControlled /* && Vector3.Distance(Rb.transform.position, something.transform.position) <= 2.1 */)
         {
             transform.position = MouseTracker.position;
+            Rb.velocity = Vector3.zero;
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
                 isControlled = false;
