@@ -52,8 +52,4 @@ public class LevelUIScript : MonoBehaviour
             HandBar.transform.localScale = new Vector3(1f, (handDistance / GameScript.handReach) * 200f, 1f);
         }
     }
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
 }

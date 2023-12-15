@@ -26,13 +26,13 @@ public class HandScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(transform.position, MouseTracker.position) <= controlRange)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(transform.position, MouseTracker.position) <= controlRange && Time.timeScale > 0)
         {
             isControlled = true;
             onHold = false;
             Rb.velocity = Vector3.zero;
         }
-        if (isControlled /* && Vector3.Distance(Rb.transform.position, something.transform.position) <= 2.1 */)
+        if (isControlled)
         {
             transform.position = MouseTracker.position;
             Rb.velocity = Vector3.zero;

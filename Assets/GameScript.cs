@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameScript : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameScript : MonoBehaviour
     public Transform MouseTracker;
     public GameObject HandR;
     public GameObject HandL;
+    public GameObject ClimbWall;
+    SpriteRenderer[] BGArray;
 
     [Header("Hand properties")]
     [Range(0f, 1f)]
@@ -32,5 +35,20 @@ public class GameScript : MonoBehaviour
         Time.fixedDeltaTime = fixedDeltaTime;
         Time.timeScale = timeScale;
         isWin = false;
+
+        BGArray = ClimbWall.GetComponentsInChildren<SpriteRenderer>();
+        foreach(SpriteRenderer x in BGArray) { x.color = new Color(Random.Range(212f, 222f) / 255, Random.Range(124f, 134f) / 255, Random.Range(68f, 78f) / 255); }
+    }
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

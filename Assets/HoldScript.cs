@@ -39,7 +39,6 @@ public class Hold : MonoBehaviour
         BarSprite = Bar.GetComponent<SpriteRenderer>();
         Collider = gameObject.GetComponent<BoxCollider2D>();
         Collider.size = Vector2.one * (grabRange * 2);
-        //canRegrab = true
 
         if (holdType == 0)
         {
